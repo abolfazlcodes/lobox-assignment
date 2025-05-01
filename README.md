@@ -1,54 +1,25 @@
-# React + TypeScript + Vite
+<!-- Dear Abolfaz
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+We are delighted to meet you and hold this process with you.
 
-Currently, two official plugins are available:
+Your application for the Front-end Developer position stood out to us, we have prepared a straightforward assignment to measure your technical skill. After you complete it, requesting you to upload the result to a GitHub repository and share the link us.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Lobox Assignment definition:
 
-## Expanding the ESLint configuration
+Implement a multi drop-down select component with the ability to add new items by typing it in an input and pressing Enter. It should be closed by clicking outside of it.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Requirements:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- Use ReactJS
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- Make the code reusable
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Use TypeScript
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+- Use SCSS, and try to implement it similarly to the image as much as possible.
+
+Note: Please do not use chatGBT or pre-made code in Gitlab otherwise it will be waste of time for you and for us.
+
+Regards,
+
+Lobox HR team -->
