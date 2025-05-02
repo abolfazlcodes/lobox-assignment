@@ -56,19 +56,12 @@
   background: white;
   border-radius: 1rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  max-height: 15rem;
-  overflow: hidden;
   padding: 1rem;
-
-  &.top {
-    top: unset;
-    bottom: 2.75rem;
-  }
 }
 
 .selectbox-options {
+  max-height: 15rem;
   overflow-y: auto;
-  max-height: inherit;
   -webkit-overflow-scrolling: touch;
 
   /* Custom scrollbar */

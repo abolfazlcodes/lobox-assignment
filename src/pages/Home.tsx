@@ -1,16 +1,48 @@
 import { useState } from "react";
-import SelectBox, { IOption } from "../components/inputs/SelectBox";
+import SelectBox from "../components/inputs/SelectBox";
 import Header from "../components/layouts/Header";
 import PageWrapper from "../components/layouts/PageWrapper";
 import { STATIC_SELECT_OPTIONS } from "../constants";
+import Input from "../components/inputs/input-field/InputFiled";
+import { generateUniqueID } from "../utils";
+import CardBox from "../components/layouts/CardBox";
 
 const HomePage = () => {
-  const [selectedChequeOption, setSelectedChequeOption] = useState<
+  const [selectOptions, setSelectOptions] = useState<IOption[]>(
+    STATIC_SELECT_OPTIONS
+  );
+  const [selectedOption, setSelectedOption] = useState<
     IOption | IOption[] | null
   >(null);
 
-  const handleChequeOptionChange = (option: IOption | IOption[]) => {
-    setSelectedChequeOption(option);
+  const [newSelectQuery, setNewSelectQuery] = useState<string>("");
+
+  const handleOptionChange = (option: IOption | IOption[]) => {
+    setSelectedOption(option);
+  };
+
+  const changeQueryHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target?.value;
+    setNewSelectQuery(value);
+  };
+
+  const addNewSelectOptionHandler = (
+    e: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (e.code === "Enter") {
+      if (newSelectQuery) {
+        const newOption: IOption = {
+          id: +generateUniqueID(),
+          name: newSelectQuery,
+          description: "",
+        };
+
+        setSelectOptions((prevState) => [...prevState, newOption]);
+      }
+
+      // do clean up
+      setNewSelectQuery("");
+    }
   };
 
   return (
@@ -18,16 +50,22 @@ const HomePage = () => {
       <Header title="Welcome to Multi-Select Project" />
 
       <section className="card-wrapper">
-        <div>input section</div>
-
-        <div style={{ width: "100%", padding: "1rem" }}>
-          <SelectBox
-            value={selectedChequeOption}
-            onChange={handleChequeOptionChange}
-            isMulti
-            options={STATIC_SELECT_OPTIONS}
+        <CardBox>
+          <Input
+            value={newSelectQuery}
+            onChange={changeQueryHandler}
+            placeholder="start typing ..."
+            onKeyDown={addNewSelectOptionHandler}
           />
-        </div>
+        </CardBox>
+        <CardBox>
+          <SelectBox
+            value={selectedOption}
+            onChange={handleOptionChange}
+            isMulti
+            options={selectOptions}
+          />
+        </CardBox>
       </section>
     </PageWrapper>
   );

@@ -5,13 +5,6 @@ import ConditionalRendering from "../layouts/ConditionalRendering";
 import { IoCheckmarkOutline, IoChevronDownOutline } from "react-icons/io5";
 import Input from "./input-field/InputFiled";
 
-export type IOption = {
-  id: number;
-  name: string;
-  value?: string;
-  description?: string;
-};
-
 export interface ISelectBoxProps {
   value: IOption | IOption[] | null;
   onChange: (option: IOption | IOption[]) => void;
