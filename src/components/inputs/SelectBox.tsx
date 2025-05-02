@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import "./selectbox.scss";
 import useClickOutside from "../../hooks/useClickOutside";
 import ConditionalRendering from "../layouts/ConditionalRendering";
-import { IoChevronDownOutline } from "react-icons/io5";
+import { IoCheckmarkOutline, IoChevronDownOutline } from "react-icons/io5";
 import Input from "./input-field/InputFiled";
 
 export type IOption = {
@@ -13,8 +13,8 @@ export type IOption = {
 };
 
 export interface ISelectBoxProps {
-  value: IOption | null;
-  onChange: (option: IOption) => void;
+  value: IOption | IOption[] | null;
+  onChange: (option: IOption | IOption[]) => void;
   options: IOption[];
   variants?: "contained" | "outlined" | undefined;
   disabled?: boolean;
@@ -27,6 +27,7 @@ export interface ISelectBoxProps {
   };
   searchable?: boolean;
   hasDescription?: boolean;
+  isMulti?: boolean;
 }
 
 const SelectBox: React.FC<ISelectBoxProps> = ({
@@ -37,23 +38,39 @@ const SelectBox: React.FC<ISelectBoxProps> = ({
   position,
   className,
   searchable = true,
+  isMulti = false,
 }) => {
   const containerRef = useRef(null);
   const scrollContainer = useRef<HTMLUListElement>(null);
 
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const [selected, setSelected] = useState<IOption | null>();
+  const [selected, setSelected] = useState<IOption | IOption[] | null>(null);
   const [optionsSt, setOptionsSt] = useState<IOption[]>();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const handleSelect = (option: IOption) => {
-    setSelected(option);
-    setQuery(option.name);
-    onChange(option);
-    handleClose();
+    if (isMulti) {
+      const selectedArray = Array.isArray(selected) ? [...selected] : [];
+      const exists = selectedArray.some((o) => o.id === option.id);
+
+      const newSelection = exists
+        ? selectedArray.filter((o) => o.id !== option.id)
+        : [...selectedArray, option];
+
+      setSelected(newSelection);
+      onChange(newSelection);
+      setQuery("");
+    } else {
+      setSelected(option);
+      setQuery(option.name);
+      onChange(option);
+      handleClose();
+    }
+
+    if (!isMulti) handleClose();
   };
 
   const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,29 +81,55 @@ const SelectBox: React.FC<ISelectBoxProps> = ({
 
   useEffect(() => {
     setSelected(value);
-    setQuery(value?.name || "");
+    if (isMulti && Array.isArray(value)) {
+      setQuery("");
+    } else {
+      setQuery((value as IOption)?.name || "");
+    }
   }, [value]);
 
   useEffect(() => {
-    if (selected?.name !== query) {
-      setOptionsSt(options?.filter(({ name }) => name.includes(query)));
-    } else {
-      setOptionsSt(options);
-    }
+    setOptionsSt(
+      options?.filter(({ name }) =>
+        name.toLowerCase().includes(query.toLowerCase())
+      )
+    );
   }, [query, selected, options]);
 
   useEffect(() => {
     if (!open) {
-      setQuery(selected?.name || "");
+      if (isMulti) {
+        setQuery("");
+      } else {
+        setQuery((selected as IOption)?.name || "");
+      }
       return;
     }
 
-    const targetEl = document.getElementById(`select_option_${selected?.id}`);
-    scrollContainer.current?.scrollTo({
-      top: targetEl?.offsetTop ?? 0,
-      behavior: "instant",
-    });
+    if (!isMulti) {
+      const targetEl = document.getElementById(
+        `select_option_${(selected as IOption)?.id}`
+      );
+      scrollContainer.current?.scrollTo({
+        top: targetEl?.offsetTop ?? 0,
+        behavior: "instant",
+      });
+    }
   }, [open, selected]);
+
+  const isSelected = (option: IOption) => {
+    if (isMulti && Array.isArray(selected)) {
+      return selected.some((s) => s.id === option.id);
+    }
+    return (selected as IOption)?.id === option.id;
+  };
+
+  const displayValue = () => {
+    if (isMulti && Array.isArray(selected)) {
+      return selected.map((s) => s.name).join(", ") || "Please select ...";
+    }
+    return query || "Please select ...";
+  };
 
   return (
     <div
@@ -103,11 +146,10 @@ const SelectBox: React.FC<ISelectBoxProps> = ({
             className?.label ?? ""
           }`}
         >
-          <p className="line-clamp-1">{query || "Please select ..."}</p>
+          <p className="selectbox-value-display">{displayValue()}</p>
         </button>
       </ConditionalRendering>
 
-      {/* Uncomment and integrate this if you want searchable input */}
       <ConditionalRendering render={searchable ? open : false}>
         <Input
           type="text"
@@ -125,7 +167,7 @@ const SelectBox: React.FC<ISelectBoxProps> = ({
       </ConditionalRendering>
 
       <div className={`selectbox-icon ${open ? "open" : ""}`}>
-        <IoChevronDownOutline />
+        <IoChevronDownOutline size={15} />
       </div>
 
       {open && (
@@ -142,7 +184,7 @@ const SelectBox: React.FC<ISelectBoxProps> = ({
                     type="button"
                     onClick={() => handleSelect(option)}
                     className={`selectbox-item ${
-                      selected?.id === option.id ? "selected" : ""
+                      isSelected(option) ? "selected" : ""
                     } ${className?.item ?? ""}`}
                   >
                     {option.name}
@@ -150,6 +192,10 @@ const SelectBox: React.FC<ISelectBoxProps> = ({
                       <span className="description">
                         ({option.description})
                       </span>
+                    </ConditionalRendering>
+
+                    <ConditionalRendering render={isSelected(option)}>
+                      <IoCheckmarkOutline />
                     </ConditionalRendering>
                   </button>
                 </li>
