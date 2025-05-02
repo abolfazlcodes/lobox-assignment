@@ -1,0 +1,88 @@
+.selectbox-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.selectbox-button,
+.selectbox-input {
+  padding-left: 2rem;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  line-height: 1.5;
+}
+
+.selectbox-button.placeholder {
+  color: #9ca3af; // tailwind's text-gray-400
+  cursor: text;
+}
+
+.selectbox-icon {
+  position: absolute;
+  right: 0.625rem;
+  transition: transform 0.3s;
+
+  &.open {
+    transform: rotate(180deg);
+  }
+}
+
+.selectbox-dropdown {
+  position: absolute;
+  top: 2.75rem;
+  z-index: 999;
+  width: 100%;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-height: 15rem;
+  overflow: hidden;
+
+  &.top {
+    top: unset;
+    bottom: 2.75rem;
+  }
+}
+
+.selectbox-options {
+  overflow-y: auto;
+  max-height: inherit;
+  -webkit-overflow-scrolling: touch;
+}
+
+.selectbox-item {
+  width: 100%;
+  text-align: left;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  background-color: transparent;
+  transition: background 0.2s;
+
+  &:hover {
+    background-color: #e6f4f1; // tailwind's blue-green-50
+  }
+
+  &.selected {
+    background-color: #e6f4f1;
+    font-weight: 700;
+  }
+
+  .description {
+    color: #3cbfad; // tailwind's blue-green-500
+    font-weight: normal;
+    display: block;
+  }
+}
+
+.selectbox-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  text-align: center;
+  color: #6b7280; // tailwind's text-g-06
+  gap: 0.5rem;
+}

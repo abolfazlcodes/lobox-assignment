@@ -13,6 +13,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -27,30 +36,37 @@ html {
   font-size: 10px;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  padding: 5rem 15rem;
-}
-
 button {
-  border-radius: 8px;
+  border-radius: 1rem;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #fff;
   cursor: pointer;
   transition: border-color 0.25s;
-
-  &:hover {
-    border-color: #646cff;
-  }
 
   &:focus,
   &:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
+  }
+}
+
+.card-wrapper {
+  border: 1px solid red;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 1.6rem;
+  width: 100%;
+  width: 100%;
+  max-width: 50rem;
+  margin: 1.6rem auto 0;
+}
+
+@media (min-width: 786px) {
+  body {
+    padding: 5rem 7rem;
   }
 }

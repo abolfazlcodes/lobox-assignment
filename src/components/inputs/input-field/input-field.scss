@@ -1,0 +1,39 @@
+.input {
+  border: 1px solid #7ed6c2;
+  color: #000;
+  font-size: 1.4rem;
+  height: 2.5rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  padding: 0.4rem 1rem;
+  outline-offset: 0;
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: #3cbfad;
+  }
+
+  &:focus {
+    outline: 2px solid #3cbfad;
+  }
+
+  &:disabled {
+    background-color: #f3f4f6;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
+  &.input-contained {
+    background-color: #e6f4f1;
+  }
+
+  &.remove-arrow::-webkit-outer-spin-button,
+  &.remove-arrow::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &.remove-arrow[type="number"] {
+    -moz-appearance: textfield;
+  }
+}
