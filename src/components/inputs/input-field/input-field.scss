@@ -1,20 +1,24 @@
 .input {
-  border: 1px solid #7ed6c2;
-  color: #000;
+  border: 1px solid #3b82f6;
+  color: #494949;
   font-size: 1.4rem;
-  height: 2.5rem;
+  height: 3.5rem;
   width: 100%;
   border-radius: 0.5rem;
   padding: 0.4rem 1rem;
   outline-offset: 0;
   box-sizing: border-box;
+  background-color: white;
+  transition: border 0.2s, box-shadow 0.2s;
 
   &::placeholder {
-    color: #3cbfad;
+    color: #494949;
   }
 
   &:focus {
-    outline: 2px solid #3cbfad;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+    outline: none;
   }
 
   &:disabled {
@@ -24,7 +28,7 @@
   }
 
   &.input-contained {
-    background-color: #e6f4f1;
+    background-color: #dbeafe;
   }
 
   &.remove-arrow::-webkit-outer-spin-button,

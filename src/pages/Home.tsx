@@ -2,12 +2,14 @@ import { useState } from "react";
 import SelectBox, { IOption } from "../components/inputs/SelectBox";
 import Header from "../components/layouts/Header";
 import PageWrapper from "../components/layouts/PageWrapper";
+import { STATIC_SELECT_OPTIONS } from "../constants";
 
 const HomePage = () => {
-  const [selectedChequeOption, setSelectedChequeOption] =
-    useState<IOption | null>(null);
+  const [selectedChequeOption, setSelectedChequeOption] = useState<
+    IOption | IOption[] | null
+  >(null);
 
-  const handleChequeOptionChange = (option: IOption) => {
+  const handleChequeOptionChange = (option: IOption | IOption[]) => {
     setSelectedChequeOption(option);
   };
 
@@ -17,24 +19,13 @@ const HomePage = () => {
 
       <section className="card-wrapper">
         <div>input section</div>
+
         <div style={{ width: "100%", padding: "1rem" }}>
           <SelectBox
             value={selectedChequeOption}
             onChange={handleChequeOptionChange}
-            options={[
-              {
-                id: 1,
-                name: "education",
-              },
-              {
-                id: 2,
-                name: "art",
-              },
-              {
-                id: 3,
-                name: "sport",
-              },
-            ]}
+            isMulti
+            options={STATIC_SELECT_OPTIONS}
           />
         </div>
       </section>

@@ -2,6 +2,13 @@
   position: relative;
   display: flex;
   align-items: center;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  transition: border 0.2s, box-shadow 0.2s;
+
+  &:focus-within {
+    border-color: #3b82f6;
+  }
 }
 
 .selectbox-button,
@@ -11,11 +18,21 @@
   width: 100%;
   cursor: pointer;
   border-radius: 0.5rem;
+  height: 3.5rem;
   line-height: 1.5;
+  background-color: white;
+  border: none;
+  outline: none;
+  padding: 0.625rem 1rem;
+  color: #1e3a8a;
+
+  &::placeholder {
+    color: #93c5fd;
+  }
 }
 
 .selectbox-button.placeholder {
-  color: #9ca3af; // tailwind's text-gray-400
+  color: #93c5fd;
   cursor: text;
 }
 
@@ -23,15 +40,17 @@
   position: absolute;
   right: 0.625rem;
   transition: transform 0.3s;
-
+  top: 30%;
+  color: #494949;
   &.open {
     transform: rotate(180deg);
+    top: 20%;
   }
 }
 
 .selectbox-dropdown {
   position: absolute;
-  top: 2.75rem;
+  top: 4.2rem;
   z-index: 999;
   width: 100%;
   background: white;
@@ -39,6 +58,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   max-height: 15rem;
   overflow: hidden;
+  padding: 1rem;
 
   &.top {
     top: unset;
@@ -50,28 +70,66 @@
   overflow-y: auto;
   max-height: inherit;
   -webkit-overflow-scrolling: touch;
+
+  /* Custom scrollbar */
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #93c5fd;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #868686;
+  }
+
+  /* Firefox support */
+  scrollbar-width: thin;
+  scrollbar-color: #868686 transparent;
+}
+
+.selectbox-value-display {
+  color: #494949;
+  font-weight: 400;
+  font-size: 1.4rem;
+  text-transform: capitalize;
 }
 
 .selectbox-item {
   width: 100%;
   text-align: left;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 0.75rem;
+  font-size: 1.3rem;
+  padding: 0.8rem 1.3rem;
+  border-radius: 0.5rem;
   background-color: transparent;
-  transition: background 0.2s;
+  transition: background 0.2s, color 0.2s;
+  color: #494949;
+  font-weight: 500;
+  text-transform: capitalize;
 
   &:hover {
-    background-color: #e6f4f1; // tailwind's blue-green-50
+    background-color: #dbeafe93;
   }
 
   &.selected {
-    background-color: #e6f4f1;
-    font-weight: 700;
+    background-color: #dbeafe93;
+    color: #1d4ed8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: none;
+    outline: none;
   }
 
   .description {
-    color: #3cbfad; // tailwind's blue-green-500
+    color: #2563eb;
     font-weight: normal;
     display: block;
   }
@@ -83,6 +141,6 @@
   align-items: center;
   height: 3rem;
   text-align: center;
-  color: #6b7280; // tailwind's text-g-06
+  color: #6b7280;
   gap: 0.5rem;
 }
